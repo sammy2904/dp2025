@@ -1,0 +1,67 @@
+import java.util.HashMap;
+
+public class LongestSubstring {
+
+    /**
+     * Finds the length of the longest substring without repeating characters.
+     * This method uses a sliding window approach with a HashMap.
+     *
+     * @param s The input string.
+     * @return The length of the longest substring without repeating characters.
+     */
+    public int lengthOfLongestSubstring(String s) {
+        if (s == null || s.length() == 0) {
+            return 0;
+        }
+
+        // HashMap to store the last seen index of each character.
+        HashMap<Character, Integer> charIndexMap = new HashMap<>();
+
+        // `maxLength` stores the length of the longest non-repeating substring found.
+        int maxLength = 0;
+        
+        // `left` is the start of the current sliding window.
+        int left = 0;
+
+        // `right` is the end of the current sliding window.
+        // We iterate through the string with the `right` pointer.
+        for (int right = 0; right < s.length(); right++) {
+            char currentChar = s.charAt(right);
+
+            // If the character is already in the map and its index is within the current window,
+            // we move the `left` pointer to the position after the last occurrence of this character.
+            if (charIndexMap.containsKey(currentChar) && charIndexMap.get(currentChar) >= left) {
+                left = charIndexMap.get(currentChar) + 1;
+            }
+
+            // Update the map with the current character and its new index.
+            charIndexMap.put(currentChar, right);
+
+            // Calculate the length of the current non-repeating substring and update `maxLength`.
+            // The length of the current window is `right - left + 1`.
+            maxLength = Math.max(maxLength, right - left + 1);
+        }
+
+        return maxLength;
+    }
+
+    public static void main(String[] args) {
+        LongestSubstring solution = new LongestSubstring();
+        
+        String s1 = "abcabcbb";
+        System.out.println("Input: \"" + s1 + "\"");
+        System.out.println("Length of the longest substring without repeating characters: " + solution.lengthOfLongestSubstring(s1)); // Expected Output: 3
+
+        String s2 = "bbbbb";
+        System.out.println("\nInput: \"" + s2 + "\"");
+        System.out.println("Length of the longest substring without repeating characters: " + solution.lengthOfLongestSubstring(s2)); // Expected Output: 1
+
+        String s3 = "pwwkew";
+        System.out.println("\nInput: \"" + s3 + "\"");
+        System.out.println("Length of the longest substring without repeating characters: " + solution.lengthOfLongestSubstring(s3)); // Expected Output: 3
+        
+        String s4 = "";
+        System.out.println("\nInput: \"" + s4 + "\"");
+        System.out.println("Length of the longest substring without repeating characters: " + solution.lengthOfLongestSubstring(s4)); // Expected Output: 0
+    }
+}
