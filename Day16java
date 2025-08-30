@@ -1,0 +1,39 @@
+import java.util.Scanner;
+
+public class LCMCalculator {
+
+    // Method to calculate GCD using the Euclidean algorithm
+    public static long gcd(long a, long b) {
+        while (b != 0) {
+            long temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
+    }
+
+    // Method to calculate LCM
+    public static long lcm(long a, long b) {
+        if (a == 0 || b == 0) {
+            return 0;
+        }
+        return Math.abs(a * b) / gcd(a, b);
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Input two numbers
+        System.out.println("Enter the first number (N):");
+        long N = scanner.nextLong();
+
+        System.out.println("Enter the second number (M):");
+        long M = scanner.nextLong();
+
+        // Calculate and print the LCM
+        long result = lcm(N, M);
+        System.out.println("The Least Common Multiple of " + N + " and " + M + " is: " + result);
+
+        scanner.close();
+    }
+}
