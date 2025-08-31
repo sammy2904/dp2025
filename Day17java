@@ -1,0 +1,57 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class PrimeFactorization {
+
+    /**
+     * Finds the prime factorization of a given positive integer N.
+     *
+     * @param N The positive integer to factorize.
+     * @return A list of prime numbers that multiply together to give N.
+     */
+    public static List<Integer> getPrimeFactors(int N) {
+        List<Integer> factors = new ArrayList<>();
+
+        // Handle the case of factor 2
+        while (N % 2 == 0) {
+            factors.add(2);
+            N /= 2;
+        }
+
+        // Handle odd factors
+        // We only need to check up to the square root of N
+        for (int i = 3; i <= Math.sqrt(N); i += 2) {
+            while (N % i == 0) {
+                factors.add(i);
+                N /= i;
+            }
+        }
+
+        // If N is a prime number greater than 2, what remains is the last factor
+        if (N > 2) {
+            factors.add(N);
+        }
+
+        return factors;
+    }
+
+    public static void main(String[] args) {
+        int N1 = 18;
+        System.out.println("Prime factors of " + N1 + ": " + getPrimeFactors(N1)); // Expected: [2, 3, 3]
+
+        int N2 = 30;
+        System.out.println("Prime factors of " + N2 + ": " + getPrimeFactors(N2)); // Expected: [2, 3, 5]
+
+        int N3 = 49;
+        System.out.println("Prime factors of " + N3 + ": " + getPrimeFactors(N3)); // Expected: [7, 7]
+
+        int N4 = 19;
+        System.out.println("Prime factors of " + N4 + ": " + getPrimeFactors(N4)); // Expected: [19]
+
+        int N5 = 64;
+        System.out.println("Prime factors of " + N5 + ": " + getPrimeFactors(N5)); // Expected: [2, 2, 2, 2, 2, 2]
+
+        int N6 = 123456;
+        System.out.println("Prime factors of " + N6 + ": " + getPrimeFactors(N6)); // Expected: [2, 2, 2, 2, 2, 3, 643]
+    }
+}
