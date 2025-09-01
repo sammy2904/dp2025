@@ -1,0 +1,63 @@
+import java.util.Scanner;
+
+public class DivisorCounter {
+
+    /**
+     * Counts the total number of divisors for a given positive integer N.
+     * This method iterates from 1 up to the square root of N to find all divisors
+     * efficiently.
+     *
+     * @param n The positive integer for which to count the divisors.
+     * @return The total number of divisors of n.
+     */
+    public static int countDivisors(int n) {
+        if (n == 1) {
+            return 1;
+        }
+
+        int count = 0;
+        int sqrtN = (int) Math.sqrt(n);
+
+        // Iterate from 1 up to the square root of n
+        for (int i = 1; i <= sqrtN; i++) {
+            if (n % i == 0) {
+                // If i is a divisor, then n/i is also a divisor
+                if (i * i == n) {
+                    // If i is the square root of n, count it once
+                    count++;
+                } else {
+                    // Otherwise, count both i and n/i
+                    count += 2;
+                }
+            }
+        }
+        return count;
+    }
+
+    public static void main(String[] args) {
+        // Example from the problem statement: N = 12
+        int n = 12;
+        System.out.println("The number of divisors for " + n + " is: " + countDivisors(n)); // Expected output: 6
+
+        // Test Cases from the problem statement:
+        // Test Case 1: N = 18
+        int n1 = 18;
+        System.out.println("The number of divisors for " + n1 + " is: " + countDivisors(n1)); // Expected output: 6
+
+        // Test Case 2: N = 29 (Prime number)
+        int n2 = 29;
+        System.out.println("The number of divisors for " + n2 + " is: " + countDivisors(n2)); // Expected output: 2
+
+        // Test Case 3: N = 100 (Perfect square)
+        int n3 = 100;
+        System.out.println("The number of divisors for " + n3 + " is: " + countDivisors(n3)); // Expected output: 9
+
+        // Test Case 4: N = 1
+        int n4 = 1;
+        System.out.println("The number of divisors for " + n4 + " is: " + countDivisors(n4)); // Expected output: 1
+
+        // Test Case 5: N = 997 (Prime number)
+        int n5 = 997;
+        System.out.println("The number of divisors for " + n5 + " is: " + countDivisors(n5)); // Expected output: 2
+    }
+}
