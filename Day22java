@@ -1,0 +1,59 @@
+import java.util.HashMap;
+import java.util.Map;
+
+public class FirstElementToRepeatKTimes {
+
+    /**
+     * Finds the first element in an array that appears exactly k times.
+     *
+     * @param arr The input integer array.
+     * @param k   The target frequency.
+     * @return The first element that appears exactly k times, or -1 if no such element exists.
+     */
+    public int findFirstElement(int[] arr, int k) {
+        // Step 1: Count the frequency of each element in the array.
+        Map<Integer, Integer> frequencyMap = new HashMap<>();
+        for (int num : arr) {
+            frequencyMap.put(num, frequencyMap.getOrDefault(num, 0) + 1);
+        }
+
+        // Step 2: Iterate through the array again to find the first element
+        // with a frequency exactly equal to k.
+        for (int num : arr) {
+            if (frequencyMap.get(num) == k) {
+                return num;
+            }
+        }
+
+        // Step 3: If no such element is found, return -1.
+        return -1;
+    }
+
+    public static void main(String[] args) {
+        FirstElementToRepeatKTimes solver = new FirstElementToRepeatKTimes();
+
+        // Example from the problem statement: arr = [3, 1, 4, 4, 5, 2, 6, 1, 4], k = 2
+        int[] arr1 = {3, 1, 4, 4, 5, 2, 6, 1, 4};
+        int k1 = 2;
+        System.out.println("Input: arr = [3, 1, 4, 4, 5, 2, 6, 1, 4], k = 2");
+        System.out.println("Output: " + solver.findFirstElement(arr1, k1)); // Expected output: 1
+
+        // Test Case 1: arr = [2, 3, 4, 2, 2, 5, 5], k = 2
+        int[] arr2 = {2, 3, 4, 2, 2, 5, 5};
+        int k2 = 2;
+        System.out.println("\nInput: arr = [2, 3, 4, 2, 2, 5, 5], k = 2");
+        System.out.println("Output: " + solver.findFirstElement(arr2, k2)); // Expected output: 5
+
+        // Test Case 2: arr = [1, 1, 1, 1], k = 1
+        int[] arr3 = {1, 1, 1, 1};
+        int k3 = 1;
+        System.out.println("\nInput: arr = [1, 1, 1, 1], k = 1");
+        System.out.println("Output: " + solver.findFirstElement(arr3, k3)); // Expected output: -1
+
+        // Test Case 3: arr = [10], k = 1
+        int[] arr4 = {10};
+        int k4 = 1;
+        System.out.println("\nInput: arr = [10], k = 1");
+        System.out.println("Output: " + solver.findFirstElement(arr4, k4)); // Expected output: 10
+    }
+}
